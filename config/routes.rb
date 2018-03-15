@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :chat_room_users
+  
   namespace :api do
     namespace :v1 do
       resources :notes

@@ -1,10 +1,9 @@
 class Api::V1::ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:show, :update, :destroy]
+  before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
 
   # GET /chat_rooms
   def index
     @chat_rooms = ChatRoom.all
-
     render json: @chat_rooms
   end
 
@@ -15,24 +14,10 @@ class Api::V1::ChatRoomsController < ApplicationController
 
   # POST /chat_rooms
   def create
-    # @chat_room = ChatRoom.new(chat_room_params)
-    @chat_room = ChatRoom.find_or_create_by(chat_room_params)
-
-    #Goal:
-    # user = User.find(params[:user_id])
-
+    @chat_room = ChatRoom.new(chat_room_params)
     user = User.all.last
-
-    @chat_room.user = user
-
-    @chat_rooms.each do |i|
-      chat_room_user = ChatRoomUser.find_or_create_by(chat_room_params)
-      if !chat_room_user.chat_rooms.include?(chat_room_params(:id))
-        chat_room_user.chat_rooms << chat_room
-      end
-    end
-
     if @chat_room.save
+      @chat_room.chat_room_users.find_or_create_by(user_id: user.id)
       render json: @chat_room, status: :created, location: api_v1_chat_rooms(@chat_room)
     else
       render json: @chat_room.errors, status: :unprocessable_entity

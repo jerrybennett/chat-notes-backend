@@ -16,10 +16,12 @@ ActiveRecord::Schema.define(version: 20180314194337) do
   enable_extension "plpgsql"
 
   create_table "chat_room_users", force: :cascade do |t|
-    t.integer "chat_room_id"
-    t.integer "user_id"
+    t.bigint "chat_room_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_chat_room_users_on_chat_room_id"
+    t.index ["user_id"], name: "index_chat_room_users_on_user_id"
   end
 
   create_table "chat_rooms", force: :cascade do |t|
@@ -30,10 +32,12 @@ ActiveRecord::Schema.define(version: 20180314194337) do
 
   create_table "messages", force: :cascade do |t|
     t.string "text"
-    t.integer "chat_room_id"
-    t.integer "user_id"
+    t.bigint "chat_room_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -45,10 +49,14 @@ ActiveRecord::Schema.define(version: 20180314194337) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "username"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "chat_room_users", "chat_rooms"
+  add_foreign_key "chat_room_users", "users"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "users"
 end
