@@ -26,9 +26,9 @@ class Api::V1::ChatRoomsController < ApplicationController
     @chat_room.user = user
 
     @chat_rooms.each do |i|
-      chat_room_user = ChatRoomUser.find_or_create_by(params[id: i])
-      if !chat_room_user.@chat_rooms.include?(@chat_room)
-        chat_room_user.@chat_rooms << @chat_room
+      chat_room_user = ChatRoomUser.find_or_create_by(set_chat_room: i)
+      if !chat_room_user.chat_rooms.include?(chat_room.id)
+        chat_room_user.chat_rooms << chat_room
       end
     end
 

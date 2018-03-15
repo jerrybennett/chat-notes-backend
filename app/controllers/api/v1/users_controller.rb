@@ -18,16 +18,16 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(user_params)
 
     #Goal:
-    # chat_room = ChatRoom.find(params[:chat_rm_id])
+    # chat_room = ChatRoom.find(params[:chat_room_id])
 
     chat_room = ChatRoom.all.last
 
     @user.chat_room = chat_room
 
     @users.each do |i|
-      chat_room_user = ChatRoomUser.find_or_create_by(params[id: i])
-      if !chat_room_user.@users.include?(@user)
-        chat_room_user.@users << @user
+      chat_room_user = ChatRoomUser.find_or_create_by(set_user: i)
+      if !chat_room_user.users.include?(user.id)
+        chat_room_user.users << user
       end
     end
 

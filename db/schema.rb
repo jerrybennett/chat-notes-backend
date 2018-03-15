@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20180314194337) do
   enable_extension "plpgsql"
 
   create_table "chat_room_users", force: :cascade do |t|
-    t.integer "chat_rm_id"
+    t.integer "chat_room_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20180314194337) do
 
   create_table "messages", force: :cascade do |t|
     t.string "text"
-    t.integer "chat_rm_id"
+    t.integer "chat_room_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

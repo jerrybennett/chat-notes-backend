@@ -46,6 +46,6 @@ class Api::V1::NotesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def note_params
-      params.require(:note).permit(:title, :text, :user_id, :chat_rm_id)
+      params.require(:note).permit(:title, :text, :user_id, :chat_room_id)
     end
 end
