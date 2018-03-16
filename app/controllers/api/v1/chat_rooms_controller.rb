@@ -7,6 +7,10 @@ class Api::V1::ChatRoomsController < ApplicationController
     render json: @chat_rooms
   end
 
+  def new
+    @chat_room = ChatRoom.new
+  end
+
   # GET /chat_rooms/1
   def show
     render json: @chat_room
@@ -14,10 +18,13 @@ class Api::V1::ChatRoomsController < ApplicationController
 
   # POST /chat_rooms
   def create
-    @chat_room = ChatRoom.new(chat_room_params)
     user = User.all.last
+    # @chat_room = ChatRoom.new(chat_room_params)
+    @chat_room = ChatRoom.new(chat_room_params)
+
     if @chat_room.save
-      @chat_room.chat_room_users.find_or_create_by(user_id: user.id)
+      chat_room.users << user
+      #user serializer for response. json: {input: message, user: user}
       render json: @chat_room, status: :created, location: api_v1_chat_rooms(@chat_room)
     else
       render json: @chat_room.errors, status: :unprocessable_entity
