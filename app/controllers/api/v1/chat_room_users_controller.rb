@@ -10,8 +10,7 @@ class Api::V1::ChatRoomUsersController < ApplicationController
     @chat_room_user = ChatRoomUser.new(chat_room_user_params)
 
     if @chat_room_user.save
-      render json: @chat_room_user, status: :created, location: api_v1_chat_room_users(@chat_room_user)
-    else
+      render json: @chat_room_user
       render json: @chat_room_user.errors, status: :unprocessable_entity
     end
   end

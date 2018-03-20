@@ -1,5 +1,5 @@
 class Api::V1::MessagesController < ApplicationController
-  before_action :set_message, only: [:show, :update, :destroy]
+  # before_action :set_message, only: [:show, :update, :destroy]
 
   # GET /messages
   def index
@@ -46,6 +46,6 @@ class Api::V1::MessagesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def message_params
-      params.require(:message).permit(:text, :chat_room_id, :user_id)
+      params.permit(:text, :chat_room_id, :user_id)
     end
 end

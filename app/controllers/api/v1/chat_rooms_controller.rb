@@ -25,7 +25,7 @@ class Api::V1::ChatRoomsController < ApplicationController
     if @chat_room.save
       chat_room.users << user
       #user serializer for response. json: {input: message, user: user}
-      render json: @chat_room, status: :created, location: api_v1_chat_rooms(@chat_room)
+      render json: @chat_room
     else
       render json: @chat_room.errors, status: :unprocessable_entity
     end
