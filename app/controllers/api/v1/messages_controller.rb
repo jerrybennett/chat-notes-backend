@@ -18,7 +18,7 @@ class Api::V1::MessagesController < ApplicationController
     @message = Message.new(message_params)
 
     if @message.save
-      render json: @message, status: :created, location: api_v1_messages(@message)
+      render json: @message
     else
       render json: @message.errors, status: :unprocessable_entity
     end
