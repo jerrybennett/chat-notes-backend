@@ -1,5 +1,5 @@
 class Api::V1::ChatRoomsController < ApplicationController
-  before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
+  # before_action :set_chat_room, only: [:show, :edit, :update, :destroy]
 
   # GET /chat_rooms
   def index
@@ -7,9 +7,9 @@ class Api::V1::ChatRoomsController < ApplicationController
     render json: @chat_rooms
   end
 
-  def new
-    @chat_room = ChatRoom.new
-  end
+  # def new
+  #   @chat_room = ChatRoom.new
+  # end
 
   # GET /chat_rooms/1
   def show
@@ -23,7 +23,7 @@ class Api::V1::ChatRoomsController < ApplicationController
     @chat_room = ChatRoom.new(chat_room_params)
 
     if @chat_room.save
-      chat_room.users << user
+      @chat_room.users << user
       #user serializer for response. json: {input: message, user: user}
       render json: @chat_room
     else
