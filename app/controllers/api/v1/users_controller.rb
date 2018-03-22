@@ -24,6 +24,12 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # def chat_rooms
+  #   @chat_rooms = ChatRoom.all.find(params[:id])
+  #
+  #   render json: @chat_room
+  # end
+
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
