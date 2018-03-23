@@ -15,15 +15,15 @@ Rails.application.routes.draw do
       #### this can be further cusomized for with additinal parameters and methods.
       #### Example: get '/chat_rooms/:id/messages/:id/topics', to: "chat_rooms#messages_topics"
       #### could 'get' a specific message from a specific chatroom and show all of it's topics.
-      get '/chat_rooms/:id/messages', to: "chat_rooms#messages"
+      post '/chat_rooms/:id/messages', to: "chat_rooms#messages"
 
       get '/chat_rooms/:id/users', to: "chat_rooms#users"
 
       get '/users/:id/chat_rooms', to: "users#chat_rooms"
       get '/users/:id/messages', to: "users#messages"
 
-      get '/users', to: "users#log_in"
-      
+      post '/users/log_in', to: "users#log_in"
+
     end
   end
 

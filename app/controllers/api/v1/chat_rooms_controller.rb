@@ -16,8 +16,11 @@ class Api::V1::ChatRoomsController < ApplicationController
   def messages
     #### finds a ChatRoom by the 'id' params, though 'id' could be anything like 'beef' as it is only a parameter that will accept anything you pass it.
     chat_room = ChatRoom.find(params[:id])
+    user = User.find(params[:user_id])
+
+    notes = Note.find_by(chatroom_id: chat_room.id, user_id: user.id)
     #### this 'render json:' returns the messages associated with the chat_room that has matching parameters. in this case...all messages associated with the chat_room_id of 'params[:id]' or for example all messagess that are associated with ChatRoom(id: 1) would be returned for a 'GET' request.
-    render json: chat_room.messages
+    render json: {messages: chat_room.messages, notes: notes}
   end
 
   def users
