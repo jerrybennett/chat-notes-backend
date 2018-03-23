@@ -22,7 +22,7 @@ class Api::V1::ChatRoomsController < ApplicationController
 
   def users
     chat_room = ChatRoom.find(params[:id])
-    
+
     render json: chat_room.users
   end
 

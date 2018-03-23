@@ -19,7 +19,11 @@ Rails.application.routes.draw do
 
       get '/chat_rooms/:id/users', to: "chat_rooms#users"
 
-      # get '/users/:id/chat_rooms' to: "users#chat_rooms"
+      get '/users/:id/chat_rooms', to: "users#chat_rooms"
+      get '/users/:id/messages', to: "users#messages"
+
+      get '/users', to: "users#log_in"
+      
     end
   end
 

@@ -24,11 +24,27 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # def chat_rooms
-  #   @chat_rooms = ChatRoom.all.find(params[:id])
+  # def log_in
+  #   user = User.find_by(user_params)
   #
-  #   render json: @chat_room
+  #   if user
+  #     render json: user
+  #   else
+  #     render json: @user.errors, status: :unprocessable_entity
+  #   end
   # end
+
+  def chat_rooms
+    user = User.find(params[:id])
+
+    render json: user.chat_rooms
+  end
+
+  def messages
+    user = User.find(params[:id])
+
+    render json: user.messages
+  end
 
   # PATCH/PUT /users/1
   def update
