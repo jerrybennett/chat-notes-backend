@@ -6,7 +6,18 @@ Rails.application.routes.draw do
       resources :chat_rooms
       resources :users
       resources :chat_room_users
-      mount ActionCable.server => '/cable'
+      post '/chat_rooms/:id/messages', to: "chat_rooms#messages"
+
+      post '/chat_rooms/:id/notes', to: "chat_rooms#notes"
+
+      get '/chat_rooms/:id/users', to: "chat_rooms#users"
+
+      get '/users/:id/chat_rooms', to: "users#chat_rooms"
+      get '/users/:id/messages', to: "users#messages"
+      get '/users/:id/notes', to: "users#notes"
+
+      post '/users/log_in', to: "users#log_in"
+      # mount ActionCable.server => '/cable'
 
       #### this is a custom route that will allow a fetch to 'GET' all messages for a ChatRoom with a specific ID. This will now show up in 'rake routes'
 
@@ -15,14 +26,7 @@ Rails.application.routes.draw do
       #### this can be further cusomized for with additinal parameters and methods.
       #### Example: get '/chat_rooms/:id/messages/:id/topics', to: "chat_rooms#messages_topics"
       #### could 'get' a specific message from a specific chatroom and show all of it's topics.
-      post '/chat_rooms/:id/messages', to: "chat_rooms#messages"
 
-      get '/chat_rooms/:id/users', to: "chat_rooms#users"
-
-      get '/users/:id/chat_rooms', to: "users#chat_rooms"
-      get '/users/:id/messages', to: "users#messages"
-
-      post '/users/log_in', to: "users#log_in"
 
     end
   end

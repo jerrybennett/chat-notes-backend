@@ -1,5 +1,5 @@
 class Api::V1::NotesController < ApplicationController
-  before_action :set_note, only: [:show, :update, :destroy]
+  # before_action :set_note, only: [:show, :update, :destroy]
 
   # GET /notes
   def index
@@ -18,7 +18,7 @@ class Api::V1::NotesController < ApplicationController
     @note = Note.new(note_params)
 
     if @note.save
-      render json: @note, status: :created, location: api_v1_notes(@note)
+      render json: @note
     else
       render json: @note.errors, status: :unprocessable_entity
     end
@@ -46,6 +46,6 @@ class Api::V1::NotesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def note_params
-      params.require(:note).permit(:title, :text, :user_id, :chat_room_id)
+      params.permit(:title, :text, :chat_room_id, :user_id)
     end
 end

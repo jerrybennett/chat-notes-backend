@@ -7,9 +7,9 @@ class Api::V1::ChatRoomsController < ApplicationController
     render json: @chat_rooms
   end
 
-  # def new
-  #   @chat_room = ChatRoom.new
-  # end
+  def new
+    @chat_room = ChatRoom.new
+  end
 
 
 ####this method can be used to find messages for a particular chat_room
@@ -17,10 +17,9 @@ class Api::V1::ChatRoomsController < ApplicationController
     #### finds a ChatRoom by the 'id' params, though 'id' could be anything like 'beef' as it is only a parameter that will accept anything you pass it.
     chat_room = ChatRoom.find(params[:id])
     user = User.find(params[:user_id])
-
-    notes = Note.find_by(chatroom_id: chat_room.id, user_id: user.id)
+    # notes = Note.find_by(chatroom_id: chat_room.id, user_id: user.id)
     #### this 'render json:' returns the messages associated with the chat_room that has matching parameters. in this case...all messages associated with the chat_room_id of 'params[:id]' or for example all messagess that are associated with ChatRoom(id: 1) would be returned for a 'GET' request.
-    render json: {messages: chat_room.messages, notes: notes}
+    render json: {messages: chat_room.messages, notes: chat_room.notes.map{|note| NoteSerializer.new(note)}}
   end
 
   def users
@@ -28,6 +27,13 @@ class Api::V1::ChatRoomsController < ApplicationController
 
     render json: chat_room.users
   end
+
+  def notes
+    chat_room = ChatRoom.find(params[:id])
+
+    render json: chat_room.notes
+  end
+
 
   # GET /chat_rooms/1
   def show

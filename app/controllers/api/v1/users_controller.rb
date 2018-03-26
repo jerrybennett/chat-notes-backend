@@ -46,6 +46,12 @@ class Api::V1::UsersController < ApplicationController
     render json: user.messages
   end
 
+  def notes
+    user = User.find(params[:id])
+
+    render json: user.notes
+  end
+
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)

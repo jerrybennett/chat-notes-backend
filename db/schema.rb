@@ -43,9 +43,12 @@ ActiveRecord::Schema.define(version: 20180314194337) do
   create_table "notes", force: :cascade do |t|
     t.string "title"
     t.string "text"
-    t.integer "user_id"
+    t.bigint "chat_room_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_notes_on_chat_room_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,4 +62,6 @@ ActiveRecord::Schema.define(version: 20180314194337) do
   add_foreign_key "chat_room_users", "users"
   add_foreign_key "messages", "chat_rooms"
   add_foreign_key "messages", "users"
+  add_foreign_key "notes", "chat_rooms"
+  add_foreign_key "notes", "users"
 end
