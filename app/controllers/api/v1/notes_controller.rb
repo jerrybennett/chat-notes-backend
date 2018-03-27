@@ -3,7 +3,7 @@ class Api::V1::NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.all
+    @notes = Note.all.order("created_at DESC")
 
     render json: @notes
   end
@@ -35,6 +35,7 @@ class Api::V1::NotesController < ApplicationController
 
   # DELETE /notes/1
   def destroy
+    @note = Note.find(params[:id])
     @note.destroy
   end
 

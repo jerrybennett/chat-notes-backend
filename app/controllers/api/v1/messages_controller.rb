@@ -3,7 +3,7 @@ class Api::V1::MessagesController < ApplicationController
 
   # GET /messages
   def index
-    @messages = Message.all
+    @messages = Message.all.order("created_at ASC")
 
     render json: @messages
   end
